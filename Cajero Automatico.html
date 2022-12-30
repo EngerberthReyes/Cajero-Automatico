@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <meta content="width=device-width, initial-scale=1" name="viewport">
+                <title>
+                    Cajero Automatico
+                </title>
+            </meta>
+        </meta>
+        <style type="text/css">
+            body {
+        		background: #000000;
+        		font-family: 'Arial';
+        		color: #ffffff;
+        	}
+
+        	body::selection {
+        		background: #ffffff;
+        		color: #000000;
+        	}
+        </style>
+    </head>
+    <body>
+        <script type="text/javascript">
+            let depositar, confirmacionUno, confirmacionDos, llamarElDepisito, retirar, opciones, acumuladorResta, consultarSaldo, crearContraseniaUno, usuario, devolverNombre, resultado, resultadoDos, nombreAntiguo, nombreUsuarioPorDefault, llamarElRetiro, acumuladorUno, retornarInformacion, contrasenia, informacionRetornada, informacionRBD, retornableotro, retornable;
+
+        nombreUsuarioPorDefault = "Nombre Por Default";
+
+        depositar = 0;
+		
+		acumulador = 0;
+
+		acumuladorUno = 0;
+
+		function depositarFuncion() {
+
+		if (depositar > 0) {
+		
+		acumulador += parseInt(depositar);
+		
+		return "Tienes un Deposito Total de: " + acumulador + "$."
+		
+		acumulador = 0
+ 
+ 	}
+
+		else if (acumulador > depositar) {
+
+		return "Tienes un Deposito Total de: " + (acumuladorResta - depositar) + "$."
+			
+		acumuladorResta = depositar;
+		
+	}
+
+}
+
+		function depositarFuncionRestar() {
+		
+		if (acumulador > 0) {
+		
+		acumulador -= parseInt(retirar);
+
+        acumuladorUno += parseInt(retirar);
+		
+		return "Retiraste: " + retirar + " Por lo tanto te Quedaria un Deposito Total de: " + acumulador;
+		
+    }
+
+    acumulador = 0;
+
+}
+
+		function consultarSaldoFuncion(consultarlo) {
+            
+        return "Su Saldo Actual Consta de: " + consultarlo + "$.";
+        
+    }
+
+        function crearUsuario(usuario, nombrePorDefecto) {
+		
+		if (usuario != "") {
+       	
+		return usuario; 
+        	
+	}   else {
+         	
+		return nombrePorDefecto;
+        
+	}
+
+}
+
+		function funcionDelRetornoN() {
+
+			return document.write("Nombre del Usuario Actual: " + usuario + "<br>" + "Contraseña Ingresada al Sistema (Actualmente): " + contrasenia + "<br>" + "Cantidad de deposito Acumulando (Inicialmente): " + depositar + "<br>" + "Cantidad Depositada Actualmente: " + acumulador + "<br>" + "Cantidad Acumulativa del Retiro: " + acumuladorUno);
+
+		}
+
+
+
+		function funcionDelRetornoDos() {
+
+		return document.write("Nombre del Usuario Actual: " + nombreUsuarioPorDefault + "<br>" + "Contraseña Ingresada al Sistema (Actualmente): " + contrasenia + "<br>" + "Cantidad de deposito Acumulando (Inicialmente): " + depositar + "<br>" + "Cantidad Depositada Actualmente: " + acumulador + "<br>" + "Cantidad Acumulativa del Retiro: " + acumuladorUno);
+
+		}
+
+
+
+        alert("Bienvenido al Cajero Automatico");
+
+		usuario = prompt("Introduzca Nombre de Usuario (Opcional)")
+
+		if (usuario != "") {
+			
+		alert("Bienvenido, " + usuario)
+		
+	}   else if (usuario == "") {
+		
+		alert("No Introdujo un Nombre de Usuario, Se le Asignara Otro que Podra Cambiar Luego (Opcional)")
+	} 
+		
+		resultado = 9999;
+		
+		resultadoDos = 1000;
+	
+		function asegurarLaContrasenia() {
+
+		parseInt(contrasenia = prompt("Introduzca Una Contraseña (4 Numeros desde el 1000 al 9999)"));
+
+ 	 	if (parseInt(contrasenia) <= resultado && parseInt(contrasenia) >= resultadoDos) {
+        	
+		alert("Contraseña Agregada Correctamente")
+
+	}	else if (parseInt(contrasenia) > resultado || parseInt(contrasenia) < resultadoDos) {
+		
+		alert("No Puede Ingresar al Sistema. Intentelo Nuevamente");
+		
+		alert("La Contraseña debe Oscilar entre los Valores del 1000 al 9999");
+		
+		asegurarLaContrasenia();
+	
+	}   else {
+		 	
+		alert("No Introdujo Una Contraseña Valida");
+ 	 		
+		asegurarLaContrasenia();
+	}
+
+}
+
+		asegurarLaContrasenia();
+
+		function llamarPrincipal() {
+		
+		opciones = prompt("Bienvenido: " + crearUsuario(usuario, nombreUsuarioPorDefault) + ". / 1 - Depositar. / 2 - Retirar. / 3 - Consultar Saldo / 4 - Reasignar la Contraseña. / 5 - Reasignar el Nombre de Usuario. (Opcional) / Para Salir del Menu Solo Presione 0");
+
+		if (opciones == 0) {
+if (usuario != "") {
+			retornable = funcionDelRetornoN();
+
+			return retornable;
+
+}
+else if (usuario == "") {
+		otroRetornable = funcionDelRetornoDos();
+
+		return otroRetornable;
+}
+
+	}
+
+		if (opciones == "" || opciones > 5) {
+		
+		opciones = alert("No Introdujo Nada ó Puso Un Numero Mayor al 5");
+		
+		llamarPrincipal();
+
+    }
+						
+		if (opciones == 1) { 
+		
+		depositar = prompt("Introduzca la Cantidad a Depositar");
+
+		if (depositar > 0) {
+
+		alert("Se le Ha añadido a el Deposito: " + depositar);
+
+	}
+
+		if (depositar <= 0) {
+				
+		alert("No se Permite Una Cantidad Menor o Igual a 0, Ni Caracteres Vacios");
+
+		llamarPrincipal();
+	
+    }   else if (depositar > 0) {
+
+		llamarElDepisito = depositarFuncion();
+
+		alert(llamarElDepisito);
+
+	}   else {
+			
+		alert("No se Permite Poner Caracteres ó El Valor Ingresado");
+		
+        llamarPrincipal();
+	
+    }
+
+		confirmacionUno = prompt('¿Desea Hacer Otro Deposito? (Escriba "Si" para continuar al Menu y Seguir Depositando o "No" para Cancelar y Mostrar Cuanto tienes Acumulado)');
+
+		if (confirmacionUno == "si" || confirmacionUno == "Si" || confirmacionUno == "SI") { 
+
+		llamarPrincipal();
+		 
+	}   else if (confirmacionUno == "no" || confirmacionUno == "No" || confirmacionUno == "NO") {
+		if (usuario != "") {
+
+			retornable = funcionDelRetornoN();
+
+			return retornable;
+
+	}
+
+		else if (usuario == "") {
+
+		otroRetornable = funcionDelRetornoDos();
+
+		return otroRetornable;
+
+	}
+  }
+ 
+}
+
+	    else if (opciones == 2) {
+
+ 	    if (acumulador <= 0 || depositar <= 0) {
+		
+		alert("No Puedes Retirar Dinero, Tienes una cantidad Depositada de: " + acumulador);
+
+		llamarPrincipal();
+	} 
+	
+        alert("Recuerda " + crearUsuario(usuario, nombreUsuarioPorDefault) + " Tienes un Deposito de: " + acumulador)
+		
+        retirar = prompt("Introduzca la Cantidad a Retirar");
+
+		if (retirar == "") {
+			
+        alert("Caracter Invalido")
+			
+        llamarPrincipal()
+		
+    }
+ 
+ 		if (retirar <= 0) {
+
+		alert("No se Permite Una Cantidad Menor a 0, Ni Caracteres Vacios");
+
+		llamarPrincipal();
+
+} else if (acumulador >= retirar || depositar >= retirar) {
+
+		alert("Se Ha Añadido la Cantidad a Retirar: " + retirar);
+	
+	} 	
+		
+	    if (acumulador >= retirar || depositar >= retirar) {
+
+		llamarElRetiro = depositarFuncionRestar();
+
+		alert(llamarElRetiro)
+
+	} else if (acumulador < retirar || depositar < retirar) {
+
+		alert("El Valor Ingresado es Superior a el Valor Depositado: " + acumulador + " ó corresponde a una Letra, Intentelo Nuevamente");
+
+	   let almacenarPrincipal = llamarPrincipal();
+
+	   return almacenarPrincipal;
+
+	}
+
+		if (retirar > 0 || acumulador != 0) {
+		
+		confirmacionDos = prompt('¿Desea Hacer Otro Retiro? (Escriba "Si" para continuar al Menu y Seguir Retirando o "No" para Cancelar y Mostrar Cuanto tienes Acumulado');
+
+	 	if (confirmacionDos == "si" || confirmacionDos == "Si" || confirmacionDos == "SI") { 
+		
+		llamarPrincipal();
+		
+    }   else if (confirmacionDos == "no" || confirmacionDos == "No" || confirmacionDos == "NO") {
+		
+		if (usuario != "") {
+
+			let retornable = funcionDelRetornoN();
+
+			return retornable;
+
+	}
+
+		else if (usuario == "") {
+
+		let otroRetornable = funcionDelRetornoDos();
+
+		return otroRetornable;
+
+	}
+
+   }
+		  
+  }
+		    
+}
+
+		else if (opciones == 3) {
+			
+		if (depositar != 0 || acumulador > 0) {
+
+		consultarSaldo = consultarSaldoFuncion(acumulador);
+
+		prompt(consultarSaldo);
+        
+        llamarPrincipal();
+
+	} 	else if (depositar <= 0 || acumulador <= 0) {
+		
+		alert("Aun No Consta de un Saldo Activo");
+
+	    llamarPrincipal();
+
+	}
+
+}
+
+		else if (opciones == 4) {
+
+		alert("Su Antigua Contraseña Era: " + contrasenia);
+
+		crearContraseniaUno = prompt("Introduzca su Nueva Contraseña (4 Numeros del 1000 al 9999)");
+		
+		if (crearContraseniaUno == "") {
+			
+        asegurarLaContrasenia();
+		
+    }
+
+		parseInt(crearContraseniaUno);
+
+		if (crearContraseniaUno <= resultado && crearContraseniaUno >= resultadoDos) {
+
+        alert("Tu Nueva contraseña es: " + crearContraseniaUno);
+
+	}	if (crearContraseniaUno > resultado || crearContraseniaUno < resultadoDos) {
+					
+		alert("No se Pudo Cambiar la Contraseña. Intentelo Nuevamente");
+		
+		alert("La Contraseña debe Oscilar entre los valores desde el 1000 hasta el 9999");
+
+		asegurarLaContrasenia();
+
+}
+
+        if (crearContraseniaUno != contrasenia) {
+
+		contrasenia = crearContraseniaUno;
+		
+        llamarPrincipal();
+	
+    }   else if (crearContraseniaUno == contrasenia) {
+		
+        alert("Las Contraseñas Son Pariguales")
+		
+        contrasenia = crearContraseniaUno;
+		
+        llamarPrincipal();
+
+    }
+
+}
+
+	    else if (opciones == 5) {
+		
+		if (usuario == "") {
+	 	
+		nombreAntiguo = alert("Su Nombre Anterior Era " + nombreUsuarioPorDefault)
+
+	 	devolverNombre = crearUsuario(usuario);
+
+	 	usuario = prompt("Introduzca Su Nuevo Nombre de Usuario");
+
+	 	nombreUsuarioPorDefault = usuario;
+
+	 	alert("Nombre Cambiado Correctamente a " + nombreUsuarioPorDefault);
+
+        llamarPrincipal();
+	
+	}   else if (usuario != "") {
+		
+		nombreAntiguo = alert("Su Nombre anterior era " + usuario)
+
+	 	devolverNombre = crearUsuario(usuario);
+
+	 	usuario = prompt("Introduzca Su Nuevo Nombre de Usuario");
+
+	 	nombreUsuarioPorDefault = usuario;
+
+	 	alert("Nombre Cambiado Correctamente a " + nombreUsuarioPorDefault);
+
+		llamarPrincipal();
+
+	}
+
+  }	
+
+}
+
+        llamarPrincipal();
+        </script>
+    </body>
+</html>
